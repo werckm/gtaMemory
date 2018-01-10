@@ -8,14 +8,16 @@ int Memory::ReadProcessMemorySA(HWND hWnd, LPVOID address) {
 
 	HANDLE hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, processID);
 	if(!hProcess) {
-		std::cerr << "ERROR: Could not open process!";
+		DWORD errorCode = GetLastError();
+		std::cerr << "ERROR: Could not open process! Error code: " << errorCode;
 	} else {
 		DWORD readData = 0;
 		DWORD readDataSize = sizeof(readData);
 		if(ReadProcessMemory(hProcess, address, &readData, readDataSize, NULL)) {
 			std::cout << readData;
 		} else {
-			std::cerr << "ERROR: Cannot read process memory!";
+			DWORD errorCode = GetLastError();
+			std::cerr << "ERROR: Cannot read process memory! Error code: " << errorCode;
 		}
 		CloseHandle(hProcess);
 	}
@@ -29,19 +31,21 @@ int Memory::WriteProcessMemorySA(HWND hWnd, LPVOID address, unsigned long newDat
 
 	HANDLE hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, processID);
 	if(!hProcess) {
-		std::cerr << "ERROR: Could not open process!";
+		DWORD errorCode = GetLastError();
+		std::cerr << "ERROR: Could not open process! Error code: " << errorCode;
 		return 1;
 	} else {
 		DWORD newDataSize = sizeof(newData);
 		if(WriteProcessMemory(hProcess, address, &newData, newDataSize, NULL)) {
 			std::cout << "INFO: WriteProcessMemory worked!";
 		} else {
-			std::cerr << "ERROR: Cannot write process memory!";
+			DWORD errorCode = GetLastError();
+			std::cerr << "ERROR: Cannot write process memory! Error code: " << errorCode;
 			return 1;
 		}
 		CloseHandle(hProcess);
 	}
-	
+
 	return 0;
 }
 
@@ -51,19 +55,21 @@ int Memory::WriteProcessMemorySA(HWND hWnd, LPVOID address, byte newData) {
 
 	HANDLE hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, processID);
 	if(!hProcess) {
-		std::cerr << "ERROR: Could not open process!";
+		DWORD errorCode = GetLastError();
+		std::cerr << "ERROR: Could not open process! Error code: " << errorCode;
 		return 1;
 	} else {
 		DWORD newDataSize = sizeof(newData);
 		if(WriteProcessMemory(hProcess, address, &newData, newDataSize, NULL)) {
 			std::cout << "INFO: WriteProcessMemory worked!";
 		} else {
-			std::cerr << "ERROR: Cannot write process memory!";
+			DWORD errorCode = GetLastError();
+			std::cerr << "ERROR: Cannot write process memory! Error code: " << errorCode;
 			return 1;
 		}
 		CloseHandle(hProcess);
 	}
-	
+
 	return 0;
 }
 
@@ -73,14 +79,16 @@ int Memory::WriteProcessMemorySA(HWND hWnd, LPVOID address, float newData) {
 
 	HANDLE hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, processID);
 	if(!hProcess) {
-		std::cerr << "ERROR: Could not open process!";
+		DWORD errorCode = GetLastError();
+		std::cerr << "ERROR: Could not open process! Error code: " << errorCode;
 		return 1;
 	} else {
 		DWORD newDataSize = sizeof(newData);
 		if(WriteProcessMemory(hProcess, address, &newData, newDataSize, NULL)) {
 			std::cout << "INFO: WriteProcessMemory worked!";
 		} else {
-			std::cerr << "ERROR: Cannot write process memory!";
+			DWORD errorCode = GetLastError();
+			std::cerr << "ERROR: Cannot write process memory! Error code: " << errorCode;
 			return 1;
 		}
 		CloseHandle(hProcess);
